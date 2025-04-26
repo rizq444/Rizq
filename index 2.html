@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Your Mechanic Appointment</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/vZm7vvnb/IMG-1959.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+    .banner {
+      width: 100%;
+      height: auto;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.85);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      color: #8b0000;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #fff;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #8b0000;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.postimg.cc/vZm7vvnb/IMG-1959.png" alt="Site Banner" class="banner">
+
+  <div class="container">
+    <h1>Book Your Mechanic Appointment</h1>
+    <form action="https://formsubmit.co/rizq444@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Mechanic Appointment Request">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="year">Vehicle Year</label>
+        <input type="text" id="year" name="year" required>
+      </div>
+
+      <div class="form-group">
+        <label for="make">Vehicle Make</label>
+        <input type="text" id="make" name="make" required>
+      </div>
+
+      <div class="form-group">
+        <label for="model">Vehicle Model</label>
+        <input type="text" id="model" name="model" required>
+      </div>
+
+      <div class="form-group">
+        <label for="service">Service Needed</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service</option>
+          <option value="Brakes">Brakes</option>
+          <option value="Tires">Tires</option>
+          <option value="Oil Change and Rotation">Oil Change and Rotation</option>
+          <option value="Small Diag">Small Diag</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description (Optional)</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="appointment">Appointment Date (Thursdays Only at 5PM)</label>
+        <select id="appointment" name="appointment" required>
+          <option value="" disabled selected>Select an appointment slot</option>
+        </select>
+      </div>
+
+      <button type="submit">Submit Appointment Request</button>
+    </form>
+  </div>
+
+  <script>
+    // Dynamically generate all Thursdays for the current month
+    const appointmentSelect = document.getElementById('appointment');
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth(); // current month
+
+    function getThursdays(year, month) {
+      let date = new Date(year, month, 1);
+      const thursdays = [];
+
+      // Get all Thursdays
+      while (date.getMonth() === month) {
+        if (date.getDay() === 4) { // 4 = Thursday
+          const options = { month: 'long', day: 'numeric' };
+          thursdays.push(`Thursday, ${date.toLocaleDateString('en-US', options)}, 5:00 PM`);
+        }
+        date.setDate(date.getDate() + 1);
+      }
+      return thursdays;
+    }
+
+    const thursdays = getThursdays(year, month);
+    thursdays.forEach(day => {
+      const option = document.createElement('option');
+      option.value = day;
+      option.textContent = day;
+      appointmentSelect.appendChild(option);
+    });
+  </script>
+</body>
+</html>
